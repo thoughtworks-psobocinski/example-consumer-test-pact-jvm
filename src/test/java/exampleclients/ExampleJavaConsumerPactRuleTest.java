@@ -1,10 +1,10 @@
 package exampleclients;
 
-import au.com.dius.pact.core.model.annotations.Pact;
-import au.com.dius.pact.consumer.junit.PactProviderRule;
-import au.com.dius.pact.consumer.junit.PactVerification;
+import au.com.dius.pact.consumer.Pact;
+import au.com.dius.pact.consumer.PactProviderRuleMk2;
+import au.com.dius.pact.consumer.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.core.model.RequestResponsePact;
+import au.com.dius.pact.model.RequestResponsePact;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 public class ExampleJavaConsumerPactRuleTest {
 
     @Rule
-    public PactProviderRule provider = new PactProviderRule("test_provider", "localhost", 8080, this);
+    public PactProviderRuleMk2 provider = new PactProviderRuleMk2("test_provider", "localhost", 8080, this);
 
     @Pact(provider="test_provider", consumer="test_consumer")
     public RequestResponsePact createFragment(PactDslWithProvider builder) {
