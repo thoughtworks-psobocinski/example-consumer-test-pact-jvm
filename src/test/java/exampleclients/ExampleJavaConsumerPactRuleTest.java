@@ -1,10 +1,9 @@
-package au.com.dius.pact.consumer.junit.examples;
+package exampleclients;
 
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.consumer.junit.PactProviderRule;
 import au.com.dius.pact.consumer.junit.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.consumer.junit.exampleclients.ConsumerClient;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import org.junit.Assert;
 import org.junit.Rule;
