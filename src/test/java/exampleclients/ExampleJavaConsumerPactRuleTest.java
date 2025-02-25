@@ -1,10 +1,12 @@
-package exampleclients;
+package au.com.dius.pact.consumer.junit.examples;
 
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.consumer.junit.PactProviderRule;
 import au.com.dius.pact.consumer.junit.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
+import au.com.dius.pact.consumer.junit.exampleclients.ConsumerClient;
 import au.com.dius.pact.core.model.RequestResponsePact;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -13,12 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class ExampleJavaConsumerPactRuleTest {
 
     @Rule
-    public PactProviderRule provider = new PactProviderRule("test_provider", "localhost", 8080, this);
+    public PactProviderRule provider = new PactProviderRule("test_provider", this);
 
     @Pact(provider="test_provider", consumer="test_consumer")
     public RequestResponsePact createFragment(PactDslWithProvider builder) {
@@ -51,16 +52,10 @@ public class ExampleJavaConsumerPactRuleTest {
     @Test
     @PactVerification("test_provider")
     public void runTest() throws IOException {
-        String providerUrl = provider.getUrl();
-        System.out.println("Provider URL: " + providerUrl);
-
-        assertNotNull("Provider URL is null! Aborting test.", providerUrl);
-        assertEquals(new ConsumerClient(provider.getUrl()).options("/second"), 200);
-
+        Assert.assertEquals(new ConsumerClient(provider.getUrl()).options("/second"), 200);
         Map expectedResponse = new HashMap();
         expectedResponse.put("responsetest", true);
         expectedResponse.put("name", "harry");
-
         assertEquals(new ConsumerClient(provider.getUrl()).getAsMap("/", ""), expectedResponse);
     }
 }
